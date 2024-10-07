@@ -1,5 +1,6 @@
 import BackHeader from "@/components/BackHeader";
 import { Flex, TextField, Button } from "@radix-ui/themes";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   return (
@@ -23,9 +24,9 @@ export default function LoginPage() {
             <Button variant="solid" className="w-4/5 h-[50px] mt-4">
               LOGIN
             </Button>
-            <a href="/signup" className="underline mt-2 text-slate-400">
+            <Link to="/signup" className="underline mt-2 text-slate-400">
               Sign Up
-            </a>
+            </Link>
           </Flex>
         </form>
       </div>
