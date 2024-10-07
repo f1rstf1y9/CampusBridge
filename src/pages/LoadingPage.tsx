@@ -1,9 +1,13 @@
+import { useTranslation } from "react-i18next";
+
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import ErrorModal from "@/components/ErrorModal";
 
 export default function LoadingPage() {
+  const { t } = useTranslation("page");
+
   const location = useLocation();
   const navigate = useNavigate();
   const croppedImage = location.state?.croppedImage;
@@ -26,7 +30,9 @@ export default function LoadingPage() {
         <div className="wmx-auto flex justify-center items-center h-lvh">
           <div className="fixed z-10 text-center">
             <iframe src="https://lottie.host/embed/a807f7e6-9b39-48ef-9e50-183909786a6a/3dS6Zu16YD.json"></iframe>{" "}
-            <span className="text-white font-bold drop-shadow">번역 중...</span>
+            <span className="text-white font-bold drop-shadow">
+              {t("Translating")}
+            </span>
           </div>
           <img
             src={croppedImage ? URL.createObjectURL(croppedImage) : ""}

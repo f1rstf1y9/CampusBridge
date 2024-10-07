@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -6,6 +8,8 @@ import BackHeader from "@/components/BackHeader";
 import Footer from "@/components/Footer";
 
 export default function DocumentPage() {
+  const { t } = useTranslation("page");
+
   const { docu_id } = useParams();
 
   const [selectedTab, setSelectedTab] = useState("text_translated");
@@ -23,10 +27,10 @@ export default function DocumentPage() {
           onValueChange={setSelectedTab}
         >
           <SegmentedControl.Item value="text_original">
-            인식된 텍스트
+            {t("OriginalText")}
           </SegmentedControl.Item>
           <SegmentedControl.Item value="text_translated">
-            번역 결과
+            {t("TranslatedResult")}
           </SegmentedControl.Item>
         </SegmentedControl.Root>
       </div>

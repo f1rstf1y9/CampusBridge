@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import BackArrow from "@/assets/icons/icon_back-arrow.svg";
 
 export default function BackHeader() {
+  const { t } = useTranslation("page");
   const navigate = useNavigate();
 
   return (
@@ -14,7 +16,7 @@ export default function BackHeader() {
           <div>
             <img src={BackArrow} alt="back" />
           </div>
-          <div>뒤로가기</div>
+          <div>{t("Back")}</div>
         </div>
       </div>
     </>

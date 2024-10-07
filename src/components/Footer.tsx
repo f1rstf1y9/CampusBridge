@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import IconHome from "@/assets/icons/icon_home.svg";
@@ -5,6 +6,7 @@ import IconFolder from "@/assets/icons/icon_folder.svg";
 import IconUser from "@/assets/icons/icon_user.svg";
 
 export default function Footer() {
+  const { t } = useTranslation("page");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,7 +23,9 @@ export default function Footer() {
             }`}
           >
             <img src={IconHome} alt="home" />
-            <span className="text-xs text-sky-400 mt-1 font-bold">홈</span>
+            <span className="text-xs text-sky-400 mt-1 font-bold">
+              {t("Home")}
+            </span>
           </div>
           <div
             onClick={() => navigate("/history")}
@@ -31,7 +35,7 @@ export default function Footer() {
           >
             <img src={IconFolder} alt="history" />
             <span className="text-xs text-sky-400 mt-1 font-bold">
-              히스토리
+              {t("History")}
             </span>
           </div>
           <div
@@ -41,7 +45,9 @@ export default function Footer() {
             }`}
           >
             <img src={IconUser} alt="profile" />
-            <span className="text-xs text-sky-400 mt-1 font-bold">프로필</span>
+            <span className="text-xs text-sky-400 mt-1 font-bold">
+              {t("Profile")}
+            </span>
           </div>
         </div>
       </div>

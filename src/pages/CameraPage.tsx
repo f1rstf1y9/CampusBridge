@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { useState, useEffect, useRef } from "react";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import ErrorModal from "@/components/ErrorModal";
@@ -9,6 +11,7 @@ import RotateCW from "@/assets/icons/icon_rotate-cw.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CameraPage() {
+  const { t } = useTranslation("page");
   const location = useLocation();
   const navigate = useNavigate();
   const cropperRef = useRef<ReactCropperElement>(null);
@@ -72,7 +75,7 @@ export default function CameraPage() {
               className="w-[80px] bg-white"
               onClick={onClick}
             >
-              확인
+              {t("OK")}
             </Button>
           </div>
           <div className="fixed z-1 h-24 bottom-0 w-lvw flex justify-center items-center gap-10">

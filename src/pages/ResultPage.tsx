@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { useState } from "react";
 
 import { SegmentedControl, Button } from "@radix-ui/themes";
@@ -5,6 +7,8 @@ import BackHeader from "@/components/BackHeader";
 import Footer from "@/components/Footer";
 
 export default function ResultPage() {
+  const { t } = useTranslation("page");
+
   const [selectedTab, setSelectedTab] = useState("text_translated");
 
   return (
@@ -19,10 +23,10 @@ export default function ResultPage() {
           onValueChange={setSelectedTab}
         >
           <SegmentedControl.Item value="text_original">
-            인식된 텍스트
+            {t("OriginalText")}
           </SegmentedControl.Item>
           <SegmentedControl.Item value="text_translated">
-            번역 결과
+            {t("TranslatedResult")}
           </SegmentedControl.Item>
         </SegmentedControl.Root>
       </div>
@@ -77,7 +81,7 @@ export default function ResultPage() {
           size="3"
           className="w-48 h-[50px] font-suite rounded-xl bg-sky-400 shadow-clay-blue-sm"
         >
-          저장
+          {t("Save")}
         </Button>
       </div>
 
