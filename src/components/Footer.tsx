@@ -1,15 +1,39 @@
 import { useNavigate } from "react-router-dom";
 
+import IconHome from "@/assets/icons/icon_home.svg";
+import IconFolder from "@/assets/icons/icon_folder.svg";
+import IconUser from "@/assets/icons/icon_user.svg";
+
 export default function Footer() {
   const navigate = useNavigate();
 
   return (
     <>
-      <div className="flex w-full h-[50px] justify-center items-center fixed bottom-0 z-10">
+      <div className="flex w-full h-[60px] justify-center items-center fixed bottom-0 z-10 bg-slate-50 rounded-t-xl shadow-[0_0_10px_rgba(0,0,0,0.1)]">
         <div className="flex w-4/5 justify-between">
-          <div onClick={() => navigate("/")}>홈</div>
-          <div onClick={() => navigate("/history")}>히스토리</div>
-          <div onClick={() => navigate("/profile")}>프로필</div>
+          <div
+            onClick={() => navigate("/")}
+            className="flex flex-col justify-center items-center"
+          >
+            <img src={IconHome} alt="home" />
+            <span className="text-xs text-sky-400 mt-1 font-bold">홈</span>
+          </div>
+          <div
+            onClick={() => navigate("/history")}
+            className="flex flex-col justify-center items-center"
+          >
+            <img src={IconFolder} alt="history" />
+            <span className="text-xs text-sky-400 mt-1 font-bold">
+              히스토리
+            </span>
+          </div>
+          <div
+            onClick={() => navigate("/profile")}
+            className="flex flex-col justify-center items-center"
+          >
+            <img src={IconUser} alt="profile" />
+            <span className="text-xs text-sky-400 mt-1 font-bold">프로필</span>
+          </div>
         </div>
       </div>
     </>
