@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 
 import MainLogo from "@/assets/images/main-logo.png";
@@ -5,6 +7,19 @@ import IconCamera from "@/assets/icons/icon_camera.svg";
 import IconAlbum from "@/assets/icons/icon_album.svg";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    setSelectedImage(null);
+  }, []);
+
+  useEffect(() => {
+    if (selectedImage) {
+      navigate("/camera", { state: { selectedImage } });
+    }
+  }, [selectedImage]);
+
   return (
     <>
       <div className="text-center w-8/12 h-full flex flex-col justify-center mx-auto">
@@ -34,6 +49,11 @@ export default function HomePage() {
               accept="image/*"
               type="file"
               capture="environment"
+              onChange={(e) => {
+                if (!selectedImage && e.target && e.target.files) {
+                  setSelectedImage(e.target.files[0]);
+                }
+              }}
             />
           </div>
 
@@ -57,6 +77,11 @@ export default function HomePage() {
               className="hidden"
               accept="image/*"
               type="file"
+              onChange={(e) => {
+                if (!selectedImage && e.target && e.target.files) {
+                  setSelectedImage(e.target.files[0]);
+                }
+              }}
             />
           </div>
         </div>

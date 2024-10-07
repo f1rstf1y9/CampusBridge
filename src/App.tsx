@@ -10,6 +10,7 @@ import ResultPage from "@/pages/ResultPage";
 import GalleryPage from "@/pages/GalleryPage";
 import HistoryPage from "@/pages/HistoryPage";
 import DocumentPage from "@/pages/DocumentPage";
+import LoadingPage from "@/pages/LoadingPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +23,7 @@ function App() {
         { path: "signup", element: <SignupPage /> },
         { path: "profile", element: <ProfilePage /> },
         { path: "camera", element: <CameraPage /> },
+        { path: "loading", element: <LoadingPage /> },
         { path: "result", element: <ResultPage /> },
         { path: "gallery", element: <GalleryPage /> },
         { path: "history", element: <HistoryPage /> },
