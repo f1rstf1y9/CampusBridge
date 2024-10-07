@@ -14,6 +14,9 @@ export default {
         "clay-blue-sm":
           "10px 10px 20px 0px rgba(43, 154, 232, 0.4), inset -6px -6px 10px 0px rgba(43, 131, 232, 0.4), inset 0px 6px 14px 0px rgb(172, 212, 243)",
       },
+      fontFamily: {
+        suite: ['"SUITE-Regular"'],
+      },
     },
   },
   plugins: [],
