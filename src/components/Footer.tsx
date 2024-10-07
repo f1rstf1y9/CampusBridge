@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import IconHome from "@/assets/icons/icon_home.svg";
 import IconFolder from "@/assets/icons/icon_folder.svg";
@@ -6,6 +6,9 @@ import IconUser from "@/assets/icons/icon_user.svg";
 
 export default function Footer() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <>
@@ -13,14 +16,18 @@ export default function Footer() {
         <div className="flex w-4/5 justify-between">
           <div
             onClick={() => navigate("/")}
-            className="flex flex-col justify-center items-center"
+            className={`flex flex-col justify-center items-center w-[30px] ${
+              isActive("/") ? "bg-radial-sky brightness-95" : ""
+            }`}
           >
             <img src={IconHome} alt="home" />
             <span className="text-xs text-sky-400 mt-1 font-bold">홈</span>
           </div>
           <div
             onClick={() => navigate("/history")}
-            className="flex flex-col justify-center items-center"
+            className={`flex flex-col justify-center items-center ${
+              isActive("/history") ? "bg-radial-sky brightness-95" : ""
+            }`}
           >
             <img src={IconFolder} alt="history" />
             <span className="text-xs text-sky-400 mt-1 font-bold">
@@ -29,7 +36,9 @@ export default function Footer() {
           </div>
           <div
             onClick={() => navigate("/profile")}
-            className="flex flex-col justify-center items-center"
+            className={`flex flex-col justify-center items-center ${
+              isActive("/profile") ? "bg-radial-sky brightness-95" : ""
+            }`}
           >
             <img src={IconUser} alt="profile" />
             <span className="text-xs text-sky-400 mt-1 font-bold">프로필</span>
