@@ -7,7 +7,7 @@ export default function HistoryPage() {
     <>
       <BackHeader />
       <div className="bg-slate-100 overflow-auto">
-        <div className="pt-[70px] pb-[60px] w-10/12 h-[calc(100%-60px)] mx-auto flex flex-col gap-6">
+        <div className="pt-[80px] pb-[80px] w-10/12 h-[calc(100%-60px)] mx-auto flex flex-col gap-6">
           <DocumentItem />
           <DocumentItem />
           <DocumentItem />
