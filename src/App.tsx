@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import HomePage from "@/pages/HomePage";
 import LoginPage from "@/pages/LoginPage";
 import SignupPage from "@/pages/SignupPage";
+import ProfilePage from "@/pages/ProfilePage";
 import CameraPage from "@/pages/CameraPage";
 import GalleryPage from "@/pages/GalleryPage";
 import HistoryPage from "@/pages/HistoryPage";
@@ -18,6 +19,7 @@ function App() {
         { path: "", element: <HomePage /> },
         { path: "login", element: <LoginPage /> },
         { path: "signup", element: <SignupPage /> },
+        { path: "profile", element: <ProfilePage /> },
         { path: "camera", element: <CameraPage /> },
         { path: "gallery", element: <GalleryPage /> },
         { path: "history", element: <HistoryPage /> },

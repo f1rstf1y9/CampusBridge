@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex w-4/5 justify-between">
           <div onClick={() => navigate("/")}>홈</div>
           <div onClick={() => navigate("/history")}>히스토리</div>
-          <div onClick={() => navigate("/login")}>프로필</div>
+          <div onClick={() => navigate("/profile")}>프로필</div>
         </div>
       </div>
     </>
