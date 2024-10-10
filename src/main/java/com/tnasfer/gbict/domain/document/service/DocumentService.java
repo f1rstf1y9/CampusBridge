@@ -38,17 +38,20 @@ public class DocumentService {
 
     public Document saveDocument(MultipartFile file, Document document, Member member) throws IOException {
 
+        //사용자 확인 및 확장자 구하기
         verifyExistsTitle(document.getTitle(),member.getId());
         this.ext = setExt(file);
 
-
+        // 파일 이름 및 저장 위치 설정
         StringBuilder fileName = new StringBuilder(S3_DNS+DOCUMENT_FILE_URL);
         fileName.append("/").append(document.getTitle()).append(UUID.randomUUID()).append(".").append(ext);
 
+        // 디비에 저장할 파일 저장 정보를 확인 하고 객체 구성
         log.info("fileName : {} ", fileName.toString());
         setDocumentData(document, fileName.toString(), member);
         insertDocumentToS3(file, fileName.toString());
 
+        //구성된 객체 디비에 저장
         return repository.save(document);
 
     }
@@ -66,7 +69,6 @@ public class DocumentService {
     }
 
     //TODO: 번역 기능 추가 해야함
-
     private void setDocumentData(Document document, String fileUrl, Member member) {
         document.setTranslated(" ");
         document.setUrl(fileUrl);
@@ -83,6 +85,7 @@ public class DocumentService {
 
 
     //확장자 구하기
+    //TODO: 허용 확장자 정해야 함 + 확장자 구하는 방식을 고쳐야 함
     private String setExt(MultipartFile file) {
         return Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1];
     }
