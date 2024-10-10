@@ -1,0 +1,14 @@
+=== 유저 회원 가입 API
+
+==== 1. Curl Request
+include::{snippets}/signUp-member/curl-request.adoc[]
+
+==== 2. HTTP Request
+include::{snippets}/signUp-member/http-request.adoc[]
+
+===== Request Body
+include::{snippets}/signUp-member/request-body.adoc[]
+include::{snippets}/signUp-member/request-fields.adoc[]
+
+===== HTTP Response
+include::{snippets}/signUp-member/http-response.adoc[]
