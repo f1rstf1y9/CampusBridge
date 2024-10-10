@@ -1,6 +1,7 @@
 package com.tnasfer.gbict.domain.document.entity;
 
 
+import com.tnasfer.gbict.domain.member.entity.Member;
 import com.tnasfer.gbict.global.baseTime.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +10,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Document extends BaseTimeEntity {
 
     @Id
@@ -21,17 +23,24 @@ public class Document extends BaseTimeEntity {
     @Column(nullable = false)
     private String original;
 
+    @Setter
     @Column(nullable = false)
     private String translated;
 
+    @Setter
     @Column(nullable = false)
     private String url;
 
+    @Setter
     @Column(nullable = false)
     private Status status;
 
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    @Getter
+
     @RequiredArgsConstructor
     public enum Status{
         ACTIVE("active"),
