@@ -26,8 +26,9 @@ public class MemberService {
     }
 
     public Member findByMemberFromId(long id){
+
         return repository.findById(id).orElseThrow(
-                ()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)
+                ()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)
         );
     }
 
