@@ -7,7 +7,6 @@ import com.tnasfer.gbict.domain.document.mapper.DocumentMapper;
 import com.tnasfer.gbict.domain.document.service.DocumentService;
 import com.tnasfer.gbict.domain.member.entity.Member;
 import com.tnasfer.gbict.domain.member.service.MemberService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
