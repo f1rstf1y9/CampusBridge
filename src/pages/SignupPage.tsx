@@ -1,17 +1,79 @@
 import { useTranslation } from "react-i18next";
 
+import { useForm, Resolver } from "react-hook-form";
+import * as yup from "yup";
+
 import BackHeader from "@/components/BackHeader";
 import { Flex, TextField, Button } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+type FormValues = {
+  nickname: string;
+  id: string;
+  password: string;
+  confirmPassword: string;
+};
+
+// const resolver: Resolver<FormValues> = async (values) => {
+//   return {
+//     values: values.nickname ? values : {},
+//     errors: !values.nickname
+//       ? {
+//           nickname: {
+//             type: "required",
+//             message: "This is required.",
+//           },
+//         }
+//       : {},
+//   };
+// };
+
+const schema = yup.object().shape({
+  nickname: yup
+    .string()
+    .required("닉네임을 입력해주세요.")
+    .min(2, "닉네임은 최소 2자 이상이어야 합니다.")
+    .max(10, "닉네임은 최대 10자 이하여야 합니다."),
+
+  id: yup
+    .string()
+    .required("아이디를 입력해주세요.")
+    .min(4, "아이디는 최소 4자 이상이어야 합니다.")
+    .max(20, "아이디는 최대 20자 이하여야 합니다.")
+    .matches(/^[a-zA-Z\d]+$/, "아이디에는 영문과 숫자만 입력할 수 있습니다."),
+
+  password: yup
+    .string()
+    .required("비밀번호를 입력해주세요.")
+    .min(8, "비밀번호는 최소 8자 이상이어야 합니다.")
+    .matches(
+      /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/,
+      "비밀번호는 8자 이상, 영문, 숫자를 포함해야 합니다."
+    ),
+
+  confirmPassword: yup
+    .string()
+    .required("비밀번호 확인을 입력해주세요.")
+    .oneOf([yup.ref("password")], "비밀번호와 일치하지 않습니다."),
+});
 
 export default function SignupPage() {
   const { t } = useTranslation("page");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({ resolver: yupResolver(schema) });
+
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <>
       <BackHeader />
       <div className="flex w-lvw h-lvh items-center">
-        <form className="w-full" action="#">
+        <form className="w-full" onSubmit={onSubmit}>
           <Flex direction="column" gap="2" className="w-full items-center">
             <h1 className="font-bold text-2xl mb-4 text-sky-400">
               {t("SignUp")}
@@ -19,26 +81,47 @@ export default function SignupPage() {
             <TextField.Root
               placeholder={t("Nickname")}
               className="w-4/5 h-[50px] rounded-xl shadow-clay-white-sm"
-              required
+              {...register("nickname")}
             />
+            {errors.nickname && (
+              <p className="text-xs text-red-500 text-left w-4/5 mb-2 px-2">
+                {errors.nickname.message}
+              </p>
+            )}
             <TextField.Root
               placeholder={t("ID")}
               className="w-4/5 h-[50px] rounded-xl shadow-clay-white-sm"
-              required
+              {...register("id")}
             />
+            {errors.id && (
+              <p className="text-xs text-red-500 text-left w-4/5 mb-2 px-2">
+                {errors.id.message}
+              </p>
+            )}
             <TextField.Root
               placeholder={t("Password")}
               className="w-4/5 h-[50px] rounded-xl shadow-clay-white-sm"
               type="password"
-              required
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-xs text-red-500 text-left w-4/5 mb-2 px-2">
+                {errors.password.message}
+              </p>
+            )}
             <TextField.Root
               placeholder={t("ConfirmPassword")}
               className="w-4/5 h-[50px] rounded-xl shadow-clay-white-sm"
               type="password"
-              required
+              {...register("confirmPassword")}
             />
+            {errors.confirmPassword && (
+              <p className="text-xs text-red-500 text-left w-4/5 mb-2 px-2">
+                {errors.confirmPassword.message}
+              </p>
+            )}
             <Button
+              type="submit"
               variant="solid"
               className="w-4/5 h-[50px] mt-4 bg-sky-400 rounded-xl shadow-clay-blue-sm"
             >
