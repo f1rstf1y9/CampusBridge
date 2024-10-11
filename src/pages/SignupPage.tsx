@@ -1,12 +1,14 @@
+import axios from "axios";
+
 import { useTranslation } from "react-i18next";
 
-import { useForm, Resolver } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import BackHeader from "@/components/BackHeader";
 import { Flex, TextField, Button } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 type FormValues = {
   nickname: string;
@@ -14,20 +16,6 @@ type FormValues = {
   password: string;
   confirmPassword: string;
 };
-
-// const resolver: Resolver<FormValues> = async (values) => {
-//   return {
-//     values: values.nickname ? values : {},
-//     errors: !values.nickname
-//       ? {
-//           nickname: {
-//             type: "required",
-//             message: "This is required.",
-//           },
-//         }
-//       : {},
-//   };
-// };
 
 const schema = yup.object().shape({
   nickname: yup
@@ -67,7 +55,24 @@ export default function SignupPage() {
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit(async (data) => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const formData = {
+      memberId: data.id,
+      password: data.password,
+      name: data.nickname,
+    };
+    try {
+      const response = await axios.post(apiUrl + "/signup", formData);
+      console.log(response);
+      if (response.status === 200) {
+        alert("회원가입 성공!");
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   return (
     <>
