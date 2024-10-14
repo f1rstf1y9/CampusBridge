@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useNavigate } from "react-router-dom";
+
 import BackHeader from "@/components/BackHeader";
 import { Flex, TextField, Button } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
@@ -49,9 +51,12 @@ const schema = yup.object().shape({
 export default function SignupPage() {
   const { t } = useTranslation("page");
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
@@ -67,10 +72,17 @@ export default function SignupPage() {
       console.log(response);
       if (response.status === 200) {
         alert("회원가입 성공!");
-        window.location.href = "/login";
+        navigate("/login");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      const response = error.response.data;
+      if (response.status === 409 && response.message === "Member EXISTS") {
+        setError("id", {
+          type: "manual",
+          message: "이미 존재하는 아이디입니다.",
+        });
+      }
     }
   });
 
