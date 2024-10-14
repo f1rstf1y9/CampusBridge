@@ -9,7 +9,12 @@ import com.tnasfer.gbict.global.error.exception.BusinessLogicException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -35,7 +40,8 @@ public class DocumentService {
     private String ext;
 
 
-
+    // 문서 저장
+    @Transactional
     public Document saveDocument(MultipartFile file, Document document, Member member) throws IOException {
 
         //사용자 확인 및 확장자 구하기
@@ -54,6 +60,24 @@ public class DocumentService {
         //구성된 객체 디비에 저장
         return repository.save(document);
 
+    }
+
+    // (하나의) 문서 상세 조회
+    public Document getDocument(long id){
+        return repository.findById(id).orElseThrow(
+                ()->new BusinessLogicException(ExceptionCode.DOCUMENT_NOT_FOUND)
+        );
+    }
+
+    public Page<Document> getPageNationDocument(long memberId, int page, int size ,String sort){
+        if (!sort.equals("desc") && !sort.equals("asc")){
+            throw new BusinessLogicException(ExceptionCode.BAD_REQUEST_SORT_DATA);
+        }
+        Pageable pageable = sort.equals("desc") ?
+                PageRequest.of(page-1,size, Sort.by(Sort.Order.desc("createdAt"))) :
+                PageRequest.of(page-1,size, Sort.by(Sort.Order.asc("createdAt")));
+
+        return repository.findAllByMember_Id(memberId,pageable);
     }
 
     //s3버킷에 파일 저장
@@ -85,9 +109,12 @@ public class DocumentService {
 
 
     //확장자 구하기
-    //TODO: 허용 확장자 정해야 함 + 확장자 구하는 방식을 고쳐야 함
+    //TODO: 허용 확장자 정해야 함
     private String setExt(MultipartFile file) {
-        return Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1];
+
+        String[] getExtArr = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
+        return getExtArr[getExtArr.length-1];
+
     }
 
 }
