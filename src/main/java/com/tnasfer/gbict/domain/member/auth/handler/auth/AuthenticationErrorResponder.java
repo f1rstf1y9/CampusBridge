@@ -8,6 +8,9 @@ import org.springframework.http.MediaType;
 
 import java.io.IOException;
 
+
+
+//TODO: 추가 적인 exceptionCode 에 대한 메서드가 필요함(HttpStatus 만 메서드 처리 중임 해결필요)
 public class AuthenticationErrorResponder {
     public static void sendErrorResponse(HttpServletResponse response, HttpStatus status, String message) throws IOException {
         ErrorResponse errorResponse = ErrorResponse.of(status, message);

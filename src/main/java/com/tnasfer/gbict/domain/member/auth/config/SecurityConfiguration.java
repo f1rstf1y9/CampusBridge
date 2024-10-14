@@ -51,13 +51,14 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers(
+                                        AntPathRequestMatcher.antMatcher("/auth/**"))
+                                .authenticated()
+                                .requestMatchers(
                                         PathRequest.toH2Console(),
                                         AntPathRequestMatcher.antMatcher("/docs/**"),
                                         AntPathRequestMatcher.antMatcher("/public/**")
                                 ).permitAll()
-                                .requestMatchers(
-                                        AntPathRequestMatcher.antMatcher("/auth/**"))
-                                .authenticated()
+
                 )
                 .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(
                         HeadersConfigurer.FrameOptionsConfig::sameOrigin
@@ -73,7 +74,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:3000", "http://localhost:5173","http://ec2-15-164-224-4.ap-northeast-2.compute.amazonaws.com:8080","http://ec2-15-164-224-4.ap-northeast-2.compute.amazonaws.com:3000","http://ec2-15-164-224-4.ap-northeast-2.compute.amazonaws.com:5173"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("*"));

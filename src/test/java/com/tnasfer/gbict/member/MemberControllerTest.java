@@ -81,7 +81,7 @@ public class MemberControllerTest extends RestDocsTest {
 //    @ExtendWith(SpringExtension.class)
 //    void memberLoginTest() throws Exception{
 //        MemberDto.Login testLogin = MemberDto.Login.builder().memberId("testMemberId").password("testPassword").build();
-////        MemberDto.Response.Login loginResponse = MemberDto.Response.Login.builder().memberId("testMemberId").id(1).name("testMemberNickname").build();
+////        MemberDto.PostResponse.Login loginResponse = MemberDto.PostResponse.Login.builder().memberId("testMemberId").id(1).name("testMemberNickname").build();
 //
 //        mockMvc.perform(RestDocumentationRequestBuilders.post("/public/login")
 //                .content(objectMapper.writeValueAsString(testLogin))

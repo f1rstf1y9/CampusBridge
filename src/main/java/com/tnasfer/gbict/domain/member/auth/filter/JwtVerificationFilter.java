@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,21 +41,27 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String encodeKey = jwtTokenizer.secretKeyEncodeBase64(jwtTokenizer.getSecretKeyString());
-        String jwtToken =  request.getHeader("Authorization").replace("Bearer ", "");;
+        String jwtToken =  request.getHeader("Authorization").replace("Bearer ", "");
         try{
             Object id = getIdInJwt(encodeKey,jwtToken);
             List<Role> roleList = service.findRoleListByMemberId(Long.parseLong(String.valueOf(id)));
             List<GrantedAuthority> grantedAuthorities = getGrantedAuthorityList(roleList);
             Authentication authentication = new UsernamePasswordAuthenticationToken(id,null, grantedAuthorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        //토큰 만료
         }catch (ExpiredJwtException ne){
             request.setAttribute(EX_HEADER, ExceptionCode.EXPIRED_TOKEN);
-        }catch (BusinessLogicException be){
+        }
+        // 맴버 검증 오류
+        catch (BusinessLogicException be){
             request.setAttribute(EX_HEADER,be);
         }
         catch (ClassCastException ce){
             request.setAttribute(EX_HEADER, ExceptionCode.ACCESS_DENIED);
-        }catch (Exception e){
+        }
+        //토큰이 없을떄
+        catch (Exception e){
             request.setAttribute(EX_HEADER, ExceptionCode.UNAUTHORIZED);
         }
 
