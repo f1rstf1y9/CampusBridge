@@ -10,14 +10,32 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DocumentMapper {
-    Document documentToRequestDto(DocumentDto.PostRequest request);
     DocumentDto.PostResponse responsePostDtoToDocument(Document document);
+
+    default DocumentDto.GetDetailResponse getDetailResponseDtoToDocument(Document document){
+        return DocumentDto.GetDetailResponse.builder()
+                .id(document.getId())
+                .original(document.getOcrDocument() == null ? "ocr test String" : document.getOcrDocument().getConvertString())
+                .translated(document.getTranslated())
+                .build();
+    }
+
+
     default DocumentDto.GetResponse getResponseDtoToDocument(Document document){
+        String title;
+        if (document.getOcrDocument() == null){
+            title = document.getId()+"";
+        }
+        else if (document.getOcrDocument().getConvertString().length() > 20) {
+            title = document.getOcrDocument().getConvertString().substring(0, 20).replace("\n", " ");
+        } else {
+            title = document.getOcrDocument().getConvertString().replace("\n", " ");
+        }
         return DocumentDto.GetResponse.builder()
                 .id(document.getId())
                 .createdAt(document.getCreatedAt())
-                .original(document.getOcrDocument().getConvertString())
-                .translated(document.getTranslated())
+                .url(document.getUrl())
+                .title(title)
                 .build();
     }
 

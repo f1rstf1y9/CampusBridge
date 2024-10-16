@@ -18,9 +18,6 @@ public class Document extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
-    private String title;
-
     @Setter
     @Column(nullable = false)
     private String translated;

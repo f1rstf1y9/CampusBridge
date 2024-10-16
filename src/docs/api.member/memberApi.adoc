@@ -12,3 +12,16 @@ include::{snippets}/signUp-member/request-fields.adoc[]
 
 ===== HTTP Response
 include::{snippets}/signUp-member/http-response.adoc[]
+
+=== 유저 정보 확인 API
+==== 1. Curl Request
+include::{snippets}/get-member-info/curl-request.adoc[]
+
+==== 2. HTTP Request
+include::{snippets}/get-member-info/http-request.adoc[]
+
+// ===== HTTP Response
+// include::{snippets}/get-member-info/http-response.adoc[]
+===== HTTP Response Body
+include::{snippets}/get-member-info/response-body.adoc[]
+include::{snippets}/get-member-info/response-fields.adoc[]

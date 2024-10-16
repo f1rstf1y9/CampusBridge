@@ -9,6 +9,7 @@ import com.tnasfer.gbict.domain.document.mapper.DocumentMapper;
 import com.tnasfer.gbict.domain.document.service.DocumentService;
 import com.tnasfer.gbict.domain.member.entity.Member;
 import com.tnasfer.gbict.domain.member.service.MemberService;
+import com.tnasfer.gbict.global.Authenticate.AuthenticationName;
 import com.tnasfer.gbict.global.responseDto.PageNationResponse;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -37,17 +38,10 @@ public class DocumentController {
 
     @PostMapping
     public ResponseEntity<?> postDocument(@RequestPart(value = "document")MultipartFile documentFile,
-                                          @RequestPart(value = "documentInfo") DocumentDto.PostRequest request,
-                                          Principal principal) throws IOException, URISyntaxException {
-        Member member = memberService.findByMemberFromId(Long.parseLong(principal.getName()));
-        Document documentInfo = mapper.documentToRequestDto(request);
+                                          @AuthenticationName long memberId) throws IOException, URISyntaxException {
+        Member member = memberService.findByMemberFromId(memberId);
+        Document documentInfo = new Document();
         Document saveDocument = documentService.saveDocument(documentFile,documentInfo, member);
-//        DocumentDto.PostResponse response = mapper.responsePostDtoToDocument(saveDocument);
-//        String token =  servletRequest.getHeader("Authorization");
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("Authorization",token);
-//        headers.setLocation(new URI("http://localhost:8080"+"/ocr/id/"+saveDocument.getId()));
-//        log.info(token);
 
         // TODO: 리다이렉트를 이용하여 서버에서 바로 OCR를 하도록 구성 였으나 결합도가 높아지는 단점이 보임
         //  프론트에서 OCR요청을 날리도록 할건지 논의가 필요해 보임
@@ -55,9 +49,10 @@ public class DocumentController {
     }
 
     @GetMapping(value = {"/docsId/{docs_id}"})
-    public ResponseEntity<?> getDocumentInfo(@PathVariable(value = "docs_id",required = true) long id){
-        Document document = documentService.getDocument(id);
-        return ResponseEntity.ok().body(mapper.getResponseDtoToDocument(document));
+    public ResponseEntity<?> getDocumentInfo(@PathVariable(value = "docs_id",required = true) long documentId,
+                                             @AuthenticationName long memberId){
+        Document document = documentService.getDocumentByIdFromDocumentId(documentId, memberId);
+        return ResponseEntity.ok().body(mapper.getDetailResponseDtoToDocument(document));
     }
 
 

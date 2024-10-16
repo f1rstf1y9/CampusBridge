@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ExceptionCode {
     BAD_REQUEST_SORT_DATA(400,"Invalid format for sorting data"),
+    BAD_TOKEN_DATA(400,"Invalid format for token or member data"),
     ACCESS_DENIED(401,"This account is inaccessible"),
     INVALID_TOKEN(401,"is not the same token as data"),
     NO_AUTH_HEADER(401,"Authentication is not in header or no bearer in Token"),
