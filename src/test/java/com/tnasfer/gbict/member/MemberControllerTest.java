@@ -7,7 +7,7 @@ import com.tnasfer.gbict.domain.member.entity.Member;
 import com.tnasfer.gbict.domain.member.mapper.MemberMapper;
 import com.tnasfer.gbict.domain.member.repository.MemberRepository;
 import com.tnasfer.gbict.domain.member.service.MemberService;
-import com.tnasfer.gbict.global.member.auth.WithCustomMockUser;
+import org.hibernate.validator.internal.constraintvalidators.bv.DigitsValidatorForCharSequence;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,9 +39,6 @@ public class MemberControllerTest extends RestDocsTest {
 
     private final MemberService service = Mockito.mock(MemberService.class);
     private final MemberMapper mapper = Mockito.mock(MemberMapper.class);
-
-    @Autowired
-    private MemberRepository repository;
 
     @Override
     protected Object initializeController() {

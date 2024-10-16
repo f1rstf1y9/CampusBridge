@@ -1,8 +1,5 @@
 package com.tnasfer.gbict.domain.member.auth.handler.auth;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.tnasfer.gbict.domain.member.auth.filter.JwtAuthenticationFilter;
 import com.tnasfer.gbict.domain.member.auth.filter.JwtVerificationFilter;
 import com.tnasfer.gbict.global.error.code.ExceptionCode;
 import com.tnasfer.gbict.global.error.exception.BusinessLogicException;

@@ -19,8 +19,8 @@ public class OcrDocument extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Lob
-    @Column(nullable = false)
+
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String convertString;
 
 
