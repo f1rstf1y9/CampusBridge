@@ -20,6 +20,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+
 	//(Spring rest Doc) 2. configuration 추가
 	asciidoctorExt
 }
