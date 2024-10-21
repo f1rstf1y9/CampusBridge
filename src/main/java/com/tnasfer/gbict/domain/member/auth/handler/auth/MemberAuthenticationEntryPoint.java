@@ -45,7 +45,11 @@ public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint 
         else if (exceptionError instanceof RuntimeException){
             setLog(HttpStatus.UNAUTHORIZED.value(), ((RuntimeException) exceptionError).getMessage());
             AuthenticationErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+        }else if (exceptionError instanceof Exception exception){
+            setLog(HttpStatus.UNAUTHORIZED.value(), (exception.getMessage()));
+            AuthenticationErrorResponder.sendErrorResponse(response, HttpStatus.BAD_REQUEST);
         }
+
     }
 
     private void setLog(int code, String msg){

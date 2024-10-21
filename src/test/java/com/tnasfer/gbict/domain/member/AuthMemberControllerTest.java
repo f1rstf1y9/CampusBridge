@@ -1,4 +1,4 @@
-package com.tnasfer.gbict.member;
+package com.tnasfer.gbict.domain.member;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import com.tnasfer.gbict.domain.member.dto.MemberDto;
@@ -6,6 +6,7 @@ import com.tnasfer.gbict.domain.member.entity.Member;
 import com.tnasfer.gbict.domain.member.mapper.MemberMapper;
 import com.tnasfer.gbict.domain.member.service.MemberService;
 import com.tnasfer.gbict.global.member.auth.WithCustomMockMember;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class AuthMemberControllerTest {
 
     @Test
     @WithCustomMockMember
+    @DisplayName("멤버 정보 확인 API")
     void getMemberInfo() throws Exception {
 
         // Given

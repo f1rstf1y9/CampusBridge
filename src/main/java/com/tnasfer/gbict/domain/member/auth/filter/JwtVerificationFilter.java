@@ -54,15 +54,12 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             request.setAttribute(EX_HEADER, ExceptionCode.EXPIRED_TOKEN);
         }
         // 맴버 검증 오류
-        catch (BusinessLogicException be){
-            request.setAttribute(EX_HEADER,be);
-        }
         catch (ClassCastException ce){
             request.setAttribute(EX_HEADER, ExceptionCode.ACCESS_DENIED);
         }
         //토큰이 없을떄
         catch (Exception e){
-            request.setAttribute(EX_HEADER, ExceptionCode.UNAUTHORIZED);
+            request.setAttribute(EX_HEADER, e);
         }
 
         filterChain.doFilter(request, response);

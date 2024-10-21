@@ -43,8 +43,6 @@ public class DocumentController {
         Document documentInfo = new Document();
         Document saveDocument = documentService.saveDocument(documentFile,documentInfo, member);
 
-        // TODO: 리다이렉트를 이용하여 서버에서 바로 OCR를 하도록 구성 였으나 결합도가 높아지는 단점이 보임
-        //  프론트에서 OCR요청을 날리도록 할건지 논의가 필요해 보임
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(new URI("/public/ocr/id/"+saveDocument.getId())).build();
     }
 

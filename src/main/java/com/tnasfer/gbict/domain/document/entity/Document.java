@@ -15,6 +15,7 @@ import lombok.*;
 public class Document extends BaseTimeEntity {
 
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

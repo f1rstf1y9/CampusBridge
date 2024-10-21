@@ -1,33 +1,21 @@
-package com.tnasfer.gbict.member;
+package com.tnasfer.gbict.domain.member;
 
 import com.tnasfer.gbict.config.docs.RestDocsTest;
 import com.tnasfer.gbict.domain.member.controller.PublicMemberController;
 import com.tnasfer.gbict.domain.member.dto.MemberDto;
 import com.tnasfer.gbict.domain.member.entity.Member;
 import com.tnasfer.gbict.domain.member.mapper.MemberMapper;
-import com.tnasfer.gbict.domain.member.repository.MemberRepository;
 import com.tnasfer.gbict.domain.member.service.MemberService;
-import org.hibernate.validator.internal.constraintvalidators.bv.DigitsValidatorForCharSequence;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import javax.print.DocFlavor;
-
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
